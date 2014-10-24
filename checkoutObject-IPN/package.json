@@ -1,0 +1,18 @@
+{
+	"name": "bitpagos-ipn-integration",
+	"version": "0.0.1",
+	"author": "Sebastián Perez <sebasperez@gmail.com>",
+	"description": "BitPagos IPN Integration",
+	"private": true,
+	"main": "./checkoutObject-IPN.js",
+	"dependencies": {
+		"express": "~3.4.4"
+	},
+	"subdomain": "bitpagos-ipn-integration",
+	"scripts": {
+		"start": "checkoutObject-IPN.js"
+	},
+	"engines": {
+		"node": "0.10.x"
+	}
+}
