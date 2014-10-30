@@ -57,13 +57,17 @@ app.post ("/bitpagos-checkout-service", function (req, res, next) {
 
 	exec(command.replace('$api_key', req.body.api_key), function(error, stdout, stderr) {
 
-		var CheckoutObject = JSON.parse(stdout);
+		var checkoutObject = JSON.parse(stdout);
 
 		console.log("Checkout Service - Checkout Object created.");
 
-		console.log("Checkout Service - Pay URL: " + CheckoutObject.checkout_url);
+		console.log("Checkout Service - Pay URL: " + checkoutObject.checkout_url);
 
-		res.send (201, {"url":CheckoutObject.checkout_url});
+		console.log("Checkout Service - QR base64: " + checkoutObject.bitcoin_link.qrcode_base64);
+
+		res.setHeader("Access-Control-Allow-Origin", "*"); // CORS
+
+		res.send (201, {"url":checkoutObject.checkout_url, "qrcode_base64":checkoutObject.bitcoin_link.qrcode_base64});
 	});
 });
 

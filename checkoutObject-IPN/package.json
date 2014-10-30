@@ -1,6 +1,6 @@
 {
 	"name": "bitpagos-ipn-integration",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "Sebastián Perez <sebasperez@gmail.com>",
 	"description": "BitPagos IPN Integration",
 	"private": true,
