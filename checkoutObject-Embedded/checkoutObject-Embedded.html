@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!--
+	BitPagos Integration
+
+	Method: Checkout Object Embedded
+
+	Transaction Status Check: IPN, compatible with integration: 'checkoutObject-IPN'
+-->
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Bitpagos Integration</title>
+
+		<!-- Bootstrap compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	</head>
+	<body style="padding:10px;">
+
+		<div class="page-header">
+			<h1>Your Checkout <small>Embedded BitPagos Integration</small></h1>
+		</div>
+
+		<ol class="breadcrumb">
+			<li>Shop</li>
+			<li>Cart</li>
+			<li class="active">Checkout</li>
+		</ol>
+
+		<div id="congrats" class="alert alert-success" role="alert" style="display:none">
+			<p>Congratulations! Now wait for the Instant Payment Notification.</p>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart"></span>   Checkout</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-3 col-md-2">
+						<div class="thumbnail">
+							<img width="40%" height="40%" src="https://s3.amazonaws.com/images.seroundtable.com/google-shopping-1352901328.png">
+							<div class="caption">
+								<h3>Item title</h3>
+								<p>Item description...</p>
+								<span class="glyphicon glyphicon-usd" style="color:#B00000" ></span><h4 style="display:inline; color:#B00000" >10</h4>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3 col-md-2">
+						<form class=".form-inline">
+							<div class="form-group">
+								<div class="radio">
+									<label><input type="radio" name="optradio" checked><span class="glyphicon glyphicon-qrcode"></span> Bitcoin <span class="label label-success">New</span></label>
+								</div>
+								<div class="radio disabled">
+									<label><input type="radio" name="optradio" disabled><span class="glyphicon glyphicon-credit-card"></span> Credit Card</label>
+								</div>
+								<div class="radio disabled">
+									<label><input type="radio" name="optradio" disabled><span class="glyphicon glyphicon-briefcase"></span> Bank Transfer</label>
+								</div>
+								<button class="btn btn-default" id="pay">Pay!</button>
+							</div>
+						</form>
+					</div>
+
+					<div id="myModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+									<h4 class="modal-title">Use your favorite BitCoin wallet to Pay</h4>
+								</div>
+								<div class="modal-body">
+									<div id="qr"></div>
+								</div>
+								<div class="modal-footer">
+									<button id="done" type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<!-- Latest Bootstrap compiled and minified JavaScript - October 2014 -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+		<script>
+
+			$("#pay").on("click", function(e) {
+
+				e.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					async:false,
+					data: { "api_key": "#your_api_key#"},
+					url: "http://bitpagos-ipn-integration.jit.su/bitpagos-checkout-service",
+					xhrFields: { withCredentials: false },
+					success: function(data) {
+						$("#qr").append( $('<img />').attr({ src : "data:image/png;base64," + data.qrcode_base64}).css("width", "50%").css("height", "50%") );
+					}
+				});
+
+				$('#myModal').modal();
+			});
+
+			$("#done").on("click", function(e) {
+
+				$("#congrats").show();
+			});
+
+		</script>
+
+	</body>
+</html>
