@@ -43,7 +43,7 @@ try {
 
 		transaction = slurper.parseText(proc.in.text)
 
-		if ( transaction.status == "PE" ) break
+		if ( transaction.status == "CO" ) break
 
 		sleep 5000
 	}
